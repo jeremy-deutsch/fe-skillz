@@ -2,10 +2,6 @@
   composes: navButtonContainer from "./DesktopNavButton.module.css";
 }
 
-.navButton {
-  composes: navButton from "./DesktopNavButton.module.css";
-}
-
 .navText {
   composes: navText from "./DesktopNavButton.module.css";
 }
@@ -19,6 +15,9 @@
   width: 250px;
   padding-top: 8px;
   padding-bottom: 8px;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0;
 }
 
 .navButtonContainer:hover .linksContainer,
@@ -41,4 +40,9 @@
 .link:focus,
 .link:hover {
   color: #d1a04f;
+}
+
+/* CSS modules don't let us use a normal li selector */
+.li {
+  list-style: none;
 }
