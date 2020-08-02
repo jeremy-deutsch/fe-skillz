@@ -1,0 +1,31 @@
+.navButtonContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-width: 170px;
+  background-color: #353535;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding-right: 4px;
+}
+
+.navButton {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.navText {
+  color: #ffffff;
+  margin: 0;
+  font-size: 12px;
+  display: flex;
+  flex-shrink: 1;
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+.navButtonContainer:hover .navText,
+.navButtonContainer:focus-within .navText {
+  color: #d1a04f;
+}
