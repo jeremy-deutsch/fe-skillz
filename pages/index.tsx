@@ -1,25 +1,47 @@
+import { useState } from "react";
 import Head from "next/head";
 import styles from "./Homepage.module.css";
 import DesktopDropdown from "../components/DesktopDropdown";
 import DesktopNavLink from "../components/DesktopNavLink";
 
 export default function HomePage() {
-  const renderDesktopLinkOrDropdown = (item: LinkData | DropdownData) => {
+  const renderDesktopLinkOrDropdown = (
+    item: LinkData | DropdownData,
+    index: number
+  ) => {
     /**
      * In case the person grading this isn't familiar with TypeScript: "magic" strings are
      * safe if they form a string enum (like they do here with the "type") fields of
      * LinkData and DropdownData. The type-checker will error if I misspell "link" or "dropdown".
      */
     if (item.type === "link") {
-      return <DesktopNavLink title={item.data.title} href={item.data.href} />;
+      return (
+        <DesktopNavLink
+          // index keys are fine as long as the order of these items never changes
+          key={index}
+          title={item.data.title}
+          href={item.data.href}
+        />
+      );
     } else if (item.type === "dropdown") {
       return (
-        <DesktopDropdown title={item.data.title} links={item.data.links} />
+        <DesktopDropdown
+          key={index}
+          title={item.data.title}
+          links={item.data.links}
+        />
       );
     } else {
       return null;
     }
   };
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  let headerContainerStyles = styles.headerContainer;
+  if (isMenuOpen) {
+    headerContainerStyles += " " + styles.headerContainerOpen;
+  }
 
   return (
     <div>
@@ -31,19 +53,35 @@ export default function HomePage() {
           background: #000000;
           margin: 0;
           font-family: Arial;
-          width: 100%;
         }
       `}</style>
-      <header className={styles.header}>
-        <img
-          className={styles.logo}
-          src="/we_are_wonderful.png"
-          alt="Wonderful logo"
-        />
-        <nav className={styles.navRow}>
-          {navbarData.map(renderDesktopLinkOrDropdown)}
-        </nav>
-      </header>
+      <div className={headerContainerStyles}>
+        <header className={styles.header}>
+          <img
+            className={styles.logo}
+            src="/we_are_wonderful.png"
+            alt="Wonderful logo"
+          />
+          <nav className={styles.navRow}>
+            {navbarData.map(renderDesktopLinkOrDropdown)}
+          </nav>
+          <button
+            onClick={() => {
+              setIsMenuOpen((isOpen) => !isOpen);
+            }}
+            className={styles.menuButton}
+          >
+            {!isMenuOpen ? (
+              <>
+                MENU
+                <div className={styles.menuButtonTriangle} />
+              </>
+            ) : (
+              "x" // TODO: make this a fancier x
+            )}
+          </button>
+        </header>
+      </div>
     </div>
   );
 }
