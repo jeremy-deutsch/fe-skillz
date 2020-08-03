@@ -15,7 +15,7 @@
 .navRow {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  flex: 1;
   height: 50%;
   background-color: #353535;
   align-self: flex-end;
