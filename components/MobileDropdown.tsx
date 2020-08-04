@@ -22,7 +22,7 @@ export default function MobileDropdown(props: Props) {
         aria-expanded={isSubmenuOpen}
         onClick={() => setIsSubmenuOpen((isOpen) => !isOpen)}
       >
-        <p>{props.title}</p>
+        <p className={styles.title}>{props.title}</p>
         <p className={styles.plusMinusIcon}>{isSubmenuOpen ? "-" : "+"}</p>
       </button>
       <ul

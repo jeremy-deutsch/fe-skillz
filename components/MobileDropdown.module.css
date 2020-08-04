@@ -1,17 +1,27 @@
 .navButton {
   composes: navButton from "./MobileNavButton.module.css";
+  outline: none;
+}
+
+.navButton:focus {
+  color: #ffffff;
 }
 
 .navButtonOpen {
   border-style: none;
 }
 
+.title {
+  margin: 0;
+}
+
 .plusMinusIcon {
   font-weight: normal;
   font-size: 20px;
-  line-height: 0;
+  line-height: 20px;
   width: 20px;
   text-align: center;
+  margin: 0;
 }
 
 .linksContainer {
@@ -32,6 +42,10 @@
   text-decoration: none;
   padding: 16px;
   width: 100%;
+}
+
+.link:focus {
+  color: #d1a04f;
 }
 
 /* CSS modules don't let us use a normal li selector */

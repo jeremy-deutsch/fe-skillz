@@ -8,6 +8,7 @@
 
 .headerContainerOpen {
   height: 100vh;
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 
@@ -34,6 +35,7 @@
   font-size: 12px;
   padding-left: 16px;
   padding-right: 16px;
+  outline: none;
 }
 
 .menuButtonTriangle {

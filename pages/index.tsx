@@ -5,6 +5,7 @@ import DesktopDropdown from "../components/DesktopDropdown";
 import DesktopNavLink from "../components/DesktopNavLink";
 import MobileDropdown from "../components/MobileDropdown";
 import { concatClasses } from "../helpers";
+import MobileNavLink from "../components/MobileNavLink";
 
 const DESKTOP_MIN_WIDTH = 900;
 
@@ -78,7 +79,15 @@ export default function HomePage() {
     item: LinkData | DropdownData,
     index: number
   ) => {
-    if (item.type === "dropdown") {
+    if (item.type === "link") {
+      return (
+        <MobileNavLink
+          key={index}
+          title={item.data.title}
+          href={item.data.href}
+        />
+      );
+    } else if (item.type === "dropdown") {
       return (
         <MobileDropdown
           key={index}
