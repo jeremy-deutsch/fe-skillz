@@ -4,10 +4,11 @@ import styles from "./Homepage.module.css";
 import DesktopDropdown from "../components/DesktopDropdown";
 import DesktopNavLink from "../components/DesktopNavLink";
 import MobileDropdown from "../components/MobileDropdown";
-import { concatClasses } from "../helpers";
 import MobileNavLink from "../components/MobileNavLink";
+import { concatClasses } from "../helpers";
 
 const DESKTOP_MIN_WIDTH = 900;
+const KEYBOARD_NAVIGATION_ID = "KEYBOARD_NAV";
 
 export default function HomePage() {
   const renderDesktopLinkOrDropdown = (
@@ -26,6 +27,8 @@ export default function HomePage() {
           key={index}
           title={item.data.title}
           href={item.data.href}
+          keyboardNavigationId={KEYBOARD_NAVIGATION_ID}
+          keyboardNavigationIndex={index}
         />
       );
     } else if (item.type === "dropdown") {
@@ -34,6 +37,8 @@ export default function HomePage() {
           key={index}
           title={item.data.title}
           links={item.data.links}
+          keyboardNavigationId={KEYBOARD_NAVIGATION_ID}
+          keyboardNavigationIndex={index}
         />
       );
     } else {
@@ -42,16 +47,6 @@ export default function HomePage() {
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const headerContainerStyles = concatClasses(
-    styles.headerContainer,
-    isMenuOpen && styles.headerContainerOpen
-  );
-
-  const navMenuStyles = concatClasses(
-    styles.navMenu,
-    isMenuOpen && styles.navMenuOpen
-  );
 
   // We can't declaratively pass styles from React to the <body>, but we need
   // it to not be scrollable when the menu is open. So, we use a side effect
@@ -112,7 +107,12 @@ export default function HomePage() {
           font-family: Arial;
         }
       `}</style>
-      <div className={headerContainerStyles}>
+      <div
+        className={concatClasses(
+          styles.headerContainer,
+          isMenuOpen && styles.headerContainerOpen
+        )}
+      >
         <header className={styles.header}>
           <img
             className={styles.logo}
@@ -140,7 +140,12 @@ export default function HomePage() {
             )}
           </button>
         </header>
-        <nav className={navMenuStyles}>
+        <nav
+          className={concatClasses(
+            styles.navMenu,
+            isMenuOpen && styles.navMenuOpen
+          )}
+        >
           {navbarData.map(renderMobileLinkOrDropdown)}
         </nav>
       </div>
