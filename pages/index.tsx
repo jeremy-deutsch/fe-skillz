@@ -117,7 +117,7 @@ export default function HomePage() {
           <img
             className={styles.logo}
             src="/we_are_wonderful.png"
-            alt="Wonderful logo"
+            alt="The Wonderful Company logo"
           />
           <nav className={styles.navRow}>
             {navbarData.map(renderDesktopLinkOrDropdown)}
@@ -129,6 +129,9 @@ export default function HomePage() {
             className={styles.menuButton}
             aria-haspopup
             aria-expanded={isMenuOpen}
+            aria-label={
+              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
           >
             {!isMenuOpen ? (
               <>
@@ -136,7 +139,7 @@ export default function HomePage() {
                 <div className={styles.menuButtonTriangle} />
               </>
             ) : (
-              "x" // TODO: make this a fancier x
+              <div className={styles.menuButtonX}>&times;</div> // TODO: make this a fancier x
             )}
           </button>
         </header>

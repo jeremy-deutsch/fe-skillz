@@ -53,12 +53,16 @@
   border-top-color: transparent;
 }
 
-.xButton {
+.menuButtonX {
   height: 20px;
   width: 20px;
   color: #ffffff;
   font-size: 40px;
   font-weight: lighter;
+  line-height: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navMenu {
