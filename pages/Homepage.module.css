@@ -27,6 +27,7 @@
 
 .menuButton {
   background-color: #353535;
+  border-style: hidden;
   border-width: 0;
   color: #ffffff;
   font-weight: bold;
@@ -56,6 +57,17 @@
   color: #ffffff;
   font-size: 40px;
   font-weight: lighter;
+}
+
+.navMenu {
+  /* display: flex when visible */
+  display: none;
+  background-color: #353535;
+  flex: 1;
+}
+
+.navMenuOpen {
+  display: flex;
 }
 
 .navRow {

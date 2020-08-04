@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import styles from "./Homepage.module.css";
 import DesktopDropdown from "../components/DesktopDropdown";
 import DesktopNavLink from "../components/DesktopNavLink";
+
+const DESKTOP_MIN_WIDTH = 900;
 
 export default function HomePage() {
   const renderDesktopLinkOrDropdown = (
@@ -43,6 +45,33 @@ export default function HomePage() {
     headerContainerStyles += " " + styles.headerContainerOpen;
   }
 
+  let navMenuStyles = styles.navMenu;
+  if (isMenuOpen) {
+    navMenuStyles += " " + styles.navMenuOpen;
+  }
+
+  // We can't declaratively pass styles from React to the <body>, but we need
+  // it to not be scrollable when the menu is open. So, we use a side effect
+  // to set the body to not be scrollable using JS whenever the menu is open.
+  useEffect(() => {
+    if (isMenuOpen) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      // If the screen is resized such that we no longer display the mobile UI,
+      // set isMenuOpen to false (which will allow scrolling once again)
+      const onResize = () => {
+        if (window.innerWidth >= DESKTOP_MIN_WIDTH) {
+          setIsMenuOpen(false);
+        }
+      };
+      window.addEventListener("resize", onResize);
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        window.removeEventListener("resize", onResize);
+      };
+    }
+  }, [isMenuOpen]);
+
   return (
     <div>
       <Head>
@@ -81,6 +110,7 @@ export default function HomePage() {
             )}
           </button>
         </header>
+        <nav className={navMenuStyles}></nav>
       </div>
     </div>
   );
