@@ -1,0 +1,41 @@
+.navButton {
+  composes: navButton from "./MobileNavButton.module.css";
+}
+
+.navButtonOpen {
+  border-style: none;
+}
+
+.plusMinusIcon {
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 0;
+  width: 20px;
+  text-align: center;
+}
+
+.linksContainer {
+  /* display: flex when visible */
+  display: none;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  background-color: #79766b;
+}
+
+.linksContainerOpen {
+  display: flex;
+}
+
+.link {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 16px;
+  width: 100%;
+}
+
+/* CSS modules don't let us use a normal li selector */
+.li {
+  list-style: none;
+  display: flex;
+}

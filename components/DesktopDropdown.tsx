@@ -9,7 +9,7 @@ interface Props {
 export default function DesktopDropdown(props: Props) {
   return (
     <div className={styles.navButtonContainer}>
-      <p tabIndex={0} className={styles.navText}>
+      <p tabIndex={0} className={styles.navText} aria-haspopup>
         {props.title}
       </p>
       {/* this extra wrapper div keeps the absolutely

@@ -3,6 +3,8 @@ import Head from "next/head";
 import styles from "./Homepage.module.css";
 import DesktopDropdown from "../components/DesktopDropdown";
 import DesktopNavLink from "../components/DesktopNavLink";
+import MobileDropdown from "../components/MobileDropdown";
+import { concatClasses } from "../helpers";
 
 const DESKTOP_MIN_WIDTH = 900;
 
@@ -40,15 +42,15 @@ export default function HomePage() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  let headerContainerStyles = styles.headerContainer;
-  if (isMenuOpen) {
-    headerContainerStyles += " " + styles.headerContainerOpen;
-  }
+  const headerContainerStyles = concatClasses(
+    styles.headerContainer,
+    isMenuOpen && styles.headerContainerOpen
+  );
 
-  let navMenuStyles = styles.navMenu;
-  if (isMenuOpen) {
-    navMenuStyles += " " + styles.navMenuOpen;
-  }
+  const navMenuStyles = concatClasses(
+    styles.navMenu,
+    isMenuOpen && styles.navMenuOpen
+  );
 
   // We can't declaratively pass styles from React to the <body>, but we need
   // it to not be scrollable when the menu is open. So, we use a side effect
@@ -71,6 +73,23 @@ export default function HomePage() {
       };
     }
   }, [isMenuOpen]);
+
+  const renderMobileLinkOrDropdown = (
+    item: LinkData | DropdownData,
+    index: number
+  ) => {
+    if (item.type === "dropdown") {
+      return (
+        <MobileDropdown
+          key={index}
+          title={item.data.title}
+          links={item.data.links}
+        />
+      );
+    } else {
+      return null;
+    }
+  };
 
   return (
     <div>
@@ -99,6 +118,8 @@ export default function HomePage() {
               setIsMenuOpen((isOpen) => !isOpen);
             }}
             className={styles.menuButton}
+            aria-haspopup
+            aria-expanded={isMenuOpen}
           >
             {!isMenuOpen ? (
               <>
@@ -110,7 +131,9 @@ export default function HomePage() {
             )}
           </button>
         </header>
-        <nav className={navMenuStyles}></nav>
+        <nav className={navMenuStyles}>
+          {navbarData.map(renderMobileLinkOrDropdown)}
+        </nav>
       </div>
     </div>
   );
